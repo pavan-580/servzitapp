@@ -1,0 +1,31 @@
+{
+  "name": "servzit",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SERVZ'IT local services and business marketplace",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "dev:api": "npm run start:dev -w @servzit/api",
+    "dev:admin": "npm run dev -w @servzit/admin-web",
+    "bundle:android:customer": "npm run bundle:android -w @servzit/customer-mobile",
+    "bundle:android:provider": "npm run bundle:android -w @servzit/provider-mobile"
+  },
+  "devDependencies": {
+    "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "overrides": {
+    "@expo/cli": {
+      "zod": "$zod"
+    },
+    "qs": "^6.16.1"
+  }
+}

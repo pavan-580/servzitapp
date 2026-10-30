@@ -1,0 +1,40 @@
+{
+  "name": "@servzit/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "build": "nest build",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run test:compile && node --test dist-test/test/nearby-query.test.js dist-test/test/auth-session.test.js dist-test/test/location-validation.test.js dist-test/test/provider-onboarding.test.js dist-test/test/booking-validation.test.js dist-test/test/provider-service.test.js dist-test/test/admin-authorization.test.js",
+    "test:compile": "tsc --project tsconfig.test.json",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "admin:bootstrap": "tsx scripts/bootstrap-admin.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^12.3.2",
+    "@nestjs/config": "^12.0.1",
+    "@nestjs/core": "^12.3.2",
+    "@nestjs/platform-node": "^12.3.2",
+    "@nestjs/swagger": "^12.0.5",
+    "@nestjs/throttler": "^6.7.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "dotenv": "^16.6.1",
+    "helmet": "^8.1.0",
+    "jose": "^6.2.14",
+    "pg": "^8.16.0",
+    "qs": "6.16.1",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^12.0.11",
+    "@nestjs/schematics": "^12.0.10",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^6.0.3"
+  }
+}

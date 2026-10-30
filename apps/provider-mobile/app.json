@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "SERVZ'IT Partner",
+    "slug": "servzit-provider",
+    "scheme": "servzit-partner",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": ["expo-router", ["expo-location", { "locationWhenInUsePermission": "Allow SERVZ'IT Partner to record your business location for local discovery." }]],
+    "android": { "package": "in.servzit.provider", "versionCode": 1 }
+  }
+}

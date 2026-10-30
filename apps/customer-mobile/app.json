@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "name": "SERVZ'IT",
+    "slug": "servzit-customer",
+    "scheme": "servzit",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "plugins": ["expo-router", ["expo-location", { "locationWhenInUsePermission": "Allow SERVZ'IT to find local services near your current location." }]],
+    "android": { "package": "in.servzit.customer", "versionCode": 1 }
+  }
+}

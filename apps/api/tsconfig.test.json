@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "./dist-test",
+    "declaration": false,
+    "sourceMap": false,
+    "incremental": false,
+    "noEmit": false
+  },
+  "include": [
+    "test/**/*.ts",
+    "src/modules/catalog/dto/**/*.ts",
+    "src/modules/auth/session-token.service.ts",
+    "src/modules/auth/dto/**/*.ts",
+    "src/modules/locations/dto/**/*.ts",
+    "src/modules/providers/dto/**/*.ts",
+    "src/modules/bookings/dto/**/*.ts"
+  ],
+  "exclude": ["node_modules", "dist", "dist-test"]
+}
