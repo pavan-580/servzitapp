@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './styles.css';
+import './admin.css';
 
 export const metadata: Metadata = {
   title: "SERVZ'IT | Operations",

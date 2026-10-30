@@ -20,7 +20,7 @@ Updated: 2026-10-30
 - [x] Initial Android EAS build profiles for internal APK and production AAB (credentials and EAS project not configured).
 - [x] Dependency installation and lockfile created.
 - [x] Admin and API production builds; API and mobile TypeScript checks; Expo Android JS exports for customer and provider. Admin typecheck now generates Next.js types first for clean checkouts.
-- [x] Seventeen automated tests covering location bounds, pagination, OTP/address/provider-profile validation, quote/booking/provider-service DTOs, admin authorization, and signed session-token use.
+- [x] Nineteen automated tests covering location bounds, pagination, OTP/address/provider-profile validation, quote/booking/provider-service DTOs, admin authorization and document-gated approval, and signed session-token use.
 - [ ] PostGIS migration execution and live discovery endpoint validation (no PostgreSQL/PostGIS or Docker executable is available here).
 - [ ] Signed Android App Bundle production build and Play Store device/policy validation.
 - [ ] Run migrations and auth/address/discovery integration checks against PostGIS (no PostgreSQL/PostGIS or Docker executable is available here).
@@ -61,7 +61,8 @@ Updated: 2026-10-30
 
 - [x] Added a one-time first-admin bootstrap command for a phone account verified by OTP; it requires explicit confirmation, checks that no administrator exists, uses a database advisory lock, and records the grant in the audit log.
 - [x] Admin-only provider review queue and approve/reject/in-review endpoint; approval is blocked until identity and business documents have explicit approved review statuses.
-- [ ] Secure document upload and review UI, user/booking/finance/CRM modules, admin web authentication, and operational dashboards remain outstanding.
+- [x] Owner portal has real OTP sign-in, in-memory access/refresh credentials, session rotation, logout, provider review queue, and document-gated review actions.
+- [ ] Secure document upload/review workflow, user/booking/finance/CRM modules, and executive dashboard remain outstanding.
 
 ## Remaining phases
 
