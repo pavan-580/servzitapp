@@ -18,7 +18,16 @@ export class CatalogController {
 
   @Get('services')
   @ApiOperation({ summary: 'List active services available for provider catalogues' })
-  getServices(@Query() query: SearchServicesQuery) { return this.catalog.getServices(query); }
+  getServices(@Query() query: SearchServicesQuery) {
+    return this.catalog.getServices(query);
+  }
+
+  @Get('promotions/area')
+  @ApiOperation({ summary: 'Get active area-targeted promotional blocks' })
+  @ApiQuery({ name: 'areaId', required: false, type: String, example: 'madhapur' })
+  getAreaPromotions(@Query('areaId') areaId?: string) {
+    return this.catalog.getAreaPromotions(areaId);
+  }
 
   @Get('providers/nearby')
   @ApiOperation({ summary: 'Find approved providers serving a real coordinate' })

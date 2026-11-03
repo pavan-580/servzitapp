@@ -13,7 +13,14 @@ export interface ServiceCategoryRow extends QueryResultRow {
 }
 
 export interface MarketplaceServiceRow extends QueryResultRow {
-  id: string; categoryId: string; categorySlug: string; categoryName: string; slug: string; nameEn: string; nameTe: string | null; description: string | null;
+  id: string;
+  categoryId: string;
+  categorySlug: string;
+  categoryName: string;
+  slug: string;
+  nameEn: string;
+  nameTe: string | null;
+  description: string | null;
 }
 
 export interface NearbyProviderRow extends QueryResultRow {
@@ -30,6 +37,19 @@ export interface NearbyProviderRow extends QueryResultRow {
   currency: string;
   availabilityStatus: 'available_now' | 'outside_scheduled_hours' | 'not_configured';
   distanceMeters: number;
+}
+
+export interface AreaAdBlockItem {
+  id: string;
+  targetArea: string;
+  title: string;
+  subtitle: string;
+  discount: number;
+  coupon: string;
+  badge: string;
+  ctaText: string;
+  categorySlug?: string;
+  isActive: boolean;
 }
 
 @Injectable()
@@ -54,7 +74,8 @@ export class CatalogService {
        FROM services s JOIN service_categories c ON c.id = s.category_id
        WHERE s.is_active AND c.is_active AND ($1::uuid IS NULL OR s.category_id = $1)
          AND ($2::text IS NULL OR strpos(lower(s.name_en), lower($2)) > 0 OR strpos(lower(COALESCE(s.name_te, '')), lower($2)) > 0)
-       ORDER BY c.sort_order, s.name_en LIMIT 100`, [query.categoryId ?? null, query.q?.trim() || null],
+       ORDER BY c.sort_order, s.name_en LIMIT 100`,
+      [query.categoryId ?? null, query.q?.trim() || null],
     );
     return { items: result.rows };
   }
@@ -125,6 +146,106 @@ export class CatalogService {
       hasMore,
       radiusMeters,
       source: 'verified-provider-locations',
+    };
+  }
+
+  getAreaPromotions(areaId?: string): { items: AreaAdBlockItem[] } {
+    const allPromotions: AreaAdBlockItem[] = [
+      {
+        id: 'ad-madhapur',
+        targetArea: 'madhapur',
+        title: 'Madhapur Electrical Safety Check',
+        subtitle: 'Flat ₹150 OFF on full electrical inspection & switchboard fix',
+        discount: 25,
+        coupon: 'MADHAPUR150',
+        badge: 'Monsoon Care',
+        ctaText: 'Book Now',
+        categorySlug: 'electrician',
+        isActive: true,
+      },
+      {
+        id: 'ad-gachibowli',
+        targetArea: 'gachibowli',
+        title: 'Gachibowli AC Jet Wash Special',
+        subtitle: 'Jet pump foam wash at ₹449 with 30-day warranty',
+        discount: 20,
+        coupon: 'GACHI40',
+        badge: 'Cyberabad Deal',
+        ctaText: 'Claim Offer',
+        categorySlug: 'ac-repair',
+        isActive: true,
+      },
+      {
+        id: 'ad-kondapur',
+        targetArea: 'kondapur',
+        title: 'Kondapur Home Deep Clean',
+        subtitle: 'Complete 2BHK/3BHK sanitization & kitchen degreasing',
+        discount: 15,
+        coupon: 'KONDAPUR15',
+        badge: 'Hygiene Assured',
+        ctaText: 'Book Service',
+        categorySlug: 'cleaning',
+        isActive: true,
+      },
+      {
+        id: 'ad-jubilee',
+        targetArea: 'jubilee-hills',
+        title: 'Jubilee Hills Premium Home Automation',
+        subtitle: 'Smart switches & touch panels installation with 1-yr guarantee',
+        discount: 15,
+        coupon: 'JUBILEE15',
+        badge: 'Luxury Living',
+        ctaText: 'Explore',
+        categorySlug: 'home-automation',
+        isActive: true,
+      },
+      {
+        id: 'ad-benz-circle',
+        targetArea: 'benz-circle',
+        title: 'Vijayawada Express Launch Offer',
+        subtitle: '15-min technician arrival near Benz Circle & MG Road',
+        discount: 30,
+        coupon: 'VJAEXPRESS',
+        badge: 'Grand Launch',
+        ctaText: 'Book Now',
+        categorySlug: 'electrician',
+        isActive: true,
+      },
+      {
+        id: 'ad-mvp-colony',
+        targetArea: 'mvp-colony',
+        title: 'Vizag Coastal AC Anti-Rusting',
+        subtitle: 'Special anti-corrosive coil coating for coastal humidity',
+        discount: 25,
+        coupon: 'VIZAGCOAST',
+        badge: 'Coastal Guard',
+        ctaText: 'Protect AC',
+        categorySlug: 'ac-repair',
+        isActive: true,
+      },
+      {
+        id: 'ad-general',
+        targetArea: 'all',
+        title: 'PhonePe-Standard Trust Guarantee',
+        subtitle: 'Upfront pricing with 100% pay-after-service assurance across AP & Telangana',
+        discount: 10,
+        coupon: 'SERVZITFREE',
+        badge: 'Servz\'it Assured',
+        ctaText: 'Book Confidently',
+        isActive: true,
+      },
+    ];
+
+    const normalized = (areaId ?? '').toLowerCase().trim();
+    if (!normalized || normalized === 'all') {
+      return { items: allPromotions.filter((p) => p.isActive) };
+    }
+
+    const matches = allPromotions.filter(
+      (p) => p.isActive && (p.targetArea === normalized || p.targetArea === 'all'),
+    );
+    return {
+      items: matches.length > 0 ? matches : allPromotions.filter((p) => p.targetArea === 'all' && p.isActive),
     };
   }
 }
